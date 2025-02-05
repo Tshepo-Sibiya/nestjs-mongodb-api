@@ -1,4 +1,6 @@
-import { isEmail, IsNotEmpty, IsString } from "class-validator";
+import { isEmail, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
+import { UserSettings } from "src/schemas/UserSettings.schema";
+import { CreateUserSettingsDto } from "./CreateUserSettings.dto";
 
 export class CreateUserDto {
 
@@ -14,4 +16,8 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     email: string;
+
+    @IsOptional()
+    @ValidateNested()
+    settings: CreateUserSettingsDto
 }
