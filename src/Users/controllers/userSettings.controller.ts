@@ -5,17 +5,18 @@ import mongoose from "mongoose";
 
 import { UserSettingsService } from "../UserSettingsService/userSettings.service";
 import { CreateUserSettingsDto } from "../dto/CreateUserSettings.dto";
+import { UpdateUserSettingsDto } from "../dto/UpdateUserSettings.dto";
 
 
 @Controller('usersSettings')
 export class UsersSettingsController {
     constructor(private usersSettingsService: UserSettingsService) { }
 
-    @Post()
+    @Post(':id')
     @UsePipes(new ValidationPipe())
-    CreateUser(@Body() createUserSettingsDto: CreateUserSettingsDto) {
+    CreateUser(@Param('id') id: string, @Body() createUserSettingsDto: CreateUserSettingsDto) {
         console.log(createUserSettingsDto);
-        return this.usersSettingsService.createUserSettings(createUserSettingsDto);
+        return this.usersSettingsService.createUserSettings(id, createUserSettingsDto);
     }
 
     @Get(':id')
@@ -30,6 +31,14 @@ export class UsersSettingsController {
     @Get()
     GetUserSettings() {
         return this.usersSettingsService.GetUserSettings();
+    }
+
+    @Patch(':id')
+    async updateUserSettingsByUserId(
+        @Param('id') userId: string,
+        @Body() updateUserSettingsDto: UpdateUserSettingsDto,
+    ) {
+        return this.usersSettingsService.UpdateUserSettings(userId, updateUserSettingsDto);
     }
 
 
