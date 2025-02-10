@@ -5,7 +5,5 @@ export class UpdateUserSettingsDto {
     @IsBoolean()
     biometricsOn?: boolean;
 
-    @IsString()
-    lastupdated: string;
 
 }

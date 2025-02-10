@@ -7,11 +7,6 @@ export class CreateSettingsDto {
     @IsOptional()
     biometricsOn: boolean;
 
-
-    @IsNotEmpty()
-    @IsString()
-    lastupdated: string;
-
     @IsEmpty({ message: 'Empty ID'})
     readonly user: User;    
 }

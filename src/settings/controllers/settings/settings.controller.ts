@@ -12,6 +12,7 @@ export class SettingsController {
     }
 
     @Get()
+    @UseGuards(AuthGuard())
     async getAllBooks(@Query() query: ExpressQuery): Promise<Settings[]> {
       return this.settingsService.findAll(query);
     }
@@ -24,7 +25,7 @@ export class SettingsController {
       settings: CreateSettingsDto,
       @Req() req,
     ): Promise<Settings> {
-      return this.settingsService.createSettings(req.user, settings);
+      return this.settingsService.createOrUpdateSettings(req.user, settings);
     }
 
 }

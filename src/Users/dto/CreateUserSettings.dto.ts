@@ -7,7 +7,5 @@ export class CreateUserSettingsDto {
     biometricsOn: boolean;
 
 
-    @IsNotEmpty()
-    @IsString()
-    lastupdated: string;
+
 }

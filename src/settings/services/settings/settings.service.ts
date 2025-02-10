@@ -15,38 +15,41 @@ export class SettingsService {
 
     }
 
-    async createSettings(user: User, settings: CreateUserSettingsDto): Promise<Settings> {
-        // const newUserSettings = new this.userSettingsModel(createUserSettingsDto);
-        // return newUserSettings.save();
+    // async createSettings(user: User, settings: CreateUserSettingsDto): Promise<Settings> {
+    
 
-        // const _user = await this.userModel.findById(id).exec();
-        // console.log(user)
-        // if (!user) {
-        //     throw new NotFoundException('User not found');
-        // }
+    //     const _user = await this.userModel.findById(user).exec();
+    //     console.log(user)
+    //     if (user != null) {
+    //         throw new NotFoundException('User not found');
+    //     }
 
-        // Create and save new settings
-        // const newSettings = new this.userSettingsModel(createUserSettingsDto);
-        // const savedSettings = await newSettings.save();
+    //     const data = Object.assign(settings, { user: user });
+    //     const savedSettings = await this.settingsModel.create(data);    
+    //     return savedSettings;
 
-        // Link the settings to the user
 
-        // await user.save();
+    // }
+    async createOrUpdateSettings(user: User, settingsDto: CreateUserSettingsDto): Promise<Settings> {
+        const _user = await this.userModel.findById(user).exec();
+        
+        if (!_user) {
+            throw new NotFoundException('User not found');
+        }
 
-        //     return savedSettings;
-        // const data = Object.assign(settings, { user: user._id });
+        let userSettings = await this.settingsModel.findOne({ user: user._id }).exec();
 
-        // const res = await this.userSettingsModel.create(data);
-        // return res;
+        if (userSettings) {
+            // Update existing settings
+            userSettings = Object.assign(userSettings, settingsDto);
+            await userSettings.save();
+        } else {
+            // Create new settings
+            const data = Object.assign(settingsDto, { user: user._id });
+            userSettings = await this.settingsModel.create(data);
+        }
 
-        const data = Object.assign(settings, { user: user });
-        const savedSettings = await this.settingsModel.create(data);    
-        return savedSettings;
-
-        // Link the settings to the user
-        // _user.settings = savedSettings.id;
-        // await user.save();
-
+        return userSettings;
     }
 
     // async UpdateUserSettings(id: string, updateUserSettinsDto: UpdateUserSettingsDto) {
@@ -78,7 +81,7 @@ export class SettingsService {
     // }
 
     async findAll(query: Query): Promise<Settings[]> {
-        const resPerPage = 2;
+        const resPerPage = 10;
         const currentPage = Number(query.page) || 1;
         const skip = resPerPage * (currentPage - 1);
     
