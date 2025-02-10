@@ -1,10 +1,10 @@
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { UserSettings } from "src/schemas/UserSettings.schema";
+import { UserSettings } from "src/schemas/userSettings.schema";
 import { UpdateUserSettingsDto } from "../dto/UpdateUserSettings.dto";
 import { CreateUserSettingsDto } from "../dto/CreateUserSettings.dto";
-import { User } from "src/schemas/User.schema";
+import { User } from "src/schemas/user.schema";
 
 
 @Injectable()

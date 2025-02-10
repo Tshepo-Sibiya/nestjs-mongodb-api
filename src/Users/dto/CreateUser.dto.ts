@@ -1,5 +1,5 @@
 import { isEmail, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
-import { UserSettings } from "src/schemas/UserSettings.schema";
+import { UserSettings } from "src/schemas/userSettings.schema";
 import { CreateUserSettingsDto } from "./CreateUserSettings.dto";
 
 export class CreateUserDto {
