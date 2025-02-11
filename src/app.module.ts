@@ -14,7 +14,6 @@ import { InvoicingModule } from './invoicing/invoicing.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/digitaltransitdb'),
-    // UsersModule,
     AuthModule,
     SettingsModule,
     InvoicingModule

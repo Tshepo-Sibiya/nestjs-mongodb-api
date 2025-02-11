@@ -44,4 +44,4 @@ export class Quote {
     user: Types.ObjectId;
 }
 
-export const InvoiceSchema = SchemaFactory.createForClass(Quote);
+export const QuoteSchema = SchemaFactory.createForClass(Quote);

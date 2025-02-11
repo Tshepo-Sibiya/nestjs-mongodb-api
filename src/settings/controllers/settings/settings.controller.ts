@@ -5,22 +5,22 @@ import { Settings } from 'src/settings/schemas/settings.schema';
 import { CreateSettingsDto } from 'src/settings/dto/create-settings.dto';
 import { AuthGuard } from '@nestjs/passport';
 
-@Controller('settings')
+@Controller('userSettings')
 export class SettingsController {
     constructor(private settingsService: SettingsService) {
 
     }
 
-    @Get()
+    @Get('/getAllUsersSettings')
     @UseGuards(AuthGuard())
-    async getAllBooks(@Query() query: ExpressQuery): Promise<Settings[]> {
+    async getAllSettings(@Query() query: ExpressQuery): Promise<Settings[]> {
       return this.settingsService.findAll(query);
     }
 
 
-    @Post()
+    @Post('/createUserSettings')
     @UseGuards(AuthGuard())
-    async createBook(
+    async getAllUsersSettings(
       @Body()
       settings: CreateSettingsDto,
       @Req() req,

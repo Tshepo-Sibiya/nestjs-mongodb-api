@@ -23,4 +23,4 @@ export class InvoiceAccountDetails {
     user: Types.ObjectId;
 }
 
-export const InvoiceCustomerSchema = SchemaFactory.createForClass(InvoiceAccountDetails);
+export const InvoiceAccountSchema = SchemaFactory.createForClass(InvoiceAccountDetails);

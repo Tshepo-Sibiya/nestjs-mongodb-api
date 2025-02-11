@@ -13,6 +13,9 @@ export class Invoice {
     invoiceNumber: string;
 
     @Prop({ required: true })
+    customerId: string;
+
+    @Prop({ required: true })
     amount: number;
 
     @Prop({ required: true })
@@ -24,7 +27,7 @@ export class Invoice {
     @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItem' }] }) 
     invoiceItems: InvoiceItem[];
 
-    @Prop({ type: mongoose.Types.ObjectId, ref: 'ICustomer', required: true })
+    @Prop({ type: mongoose.Types.ObjectId, ref: 'Customer', required: true })
     customer: Customer;
 
     @Prop({ type: Types.ObjectId, ref: 'User', required: true })

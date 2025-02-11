@@ -16,13 +16,13 @@ export class Customer extends Document {
     phone: string;
 
     @Prop({ default: false })
-    archive: boolean;
+    archived: boolean;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'CustomerAddress' })
     address: CustomerAddress;
 }
 
-export const InvoiceCustomerSchema = SchemaFactory.createForClass(Customer);
+export const CustomerSchema = SchemaFactory.createForClass(Customer);
 
 
 
