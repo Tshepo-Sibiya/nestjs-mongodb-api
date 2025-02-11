@@ -57,4 +57,19 @@ export class AuthService {
     
         return { token };
       }
+
+      async getProfileDetails(userId: string) {
+        try {
+          const user = await this.userModel.findById(userId).lean().exec();
+          if (!user) {
+            throw new UnauthorizedException('User not found');
+          }
+          
+          const { password, ...userWithoutPassword } = user;
+          return userWithoutPassword;
+        } catch (error) {
+          throw new UnauthorizedException('Could not retrieve user profile');
+        }
+      }
+      
 }

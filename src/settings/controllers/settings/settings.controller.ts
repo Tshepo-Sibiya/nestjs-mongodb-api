@@ -20,7 +20,7 @@ export class SettingsController {
 
     @Post('/createUserSettings')
     @UseGuards(AuthGuard())
-    async getAllUsersSettings(
+    async createUserSettings(
       @Body()
       settings: CreateSettingsDto,
       @Req() req,

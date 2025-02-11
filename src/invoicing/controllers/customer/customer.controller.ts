@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateCustomerDto } from 'src/invoicing/dto/customer-dto/create-customer..dto';
 import { Customer } from 'src/invoicing/schemas/customer.schema';
 import { CustomerService } from 'src/invoicing/services/customer/customer.service';
@@ -9,23 +10,28 @@ export class CustomerController {
 
     }
     @Post('/createCustomer')
-    async create(@Body() createCustomerDto: CreateCustomerDto): Promise<Customer> {
-        return this.customerService.createCustomer(createCustomerDto);
+    @UseGuards(AuthGuard())
+    async create(
+        @Body() createCustomerDto: CreateCustomerDto,
+        @Req() req,
+
+    ): Promise<Customer> {
+        return this.customerService.createCustomer(req.user, createCustomerDto);
     }
 
-    // @Post('/createInvoice')
-    // async create(@Body() createInvoiceDto: CreateInvoiceDto): Promise<Invoice> {
-    //     return this.invoiceService.createInvoice(createInvoiceDto);
-    // }
 
     @Patch('/updateCustomer/:id')
+    @UseGuards(AuthGuard())
     async updateCustomer(@Param('id') id: string, @Body() updateCustomerDto: CreateCustomerDto) {
         return this.customerService.updateCustomer(id, updateCustomerDto);
     }
 
-    @Get('/getCustomers')
-    getCustomers() {
-
+    @Post('/getUserCustomers/:id')
+    @UseGuards(AuthGuard())
+    getCustomersByUserId(@Param('id') id: string,) { 
+        console.log('Its here...');
+        console.log(id);
+        return this.customerService.getCustomersByUserId(id);
     }
 
     @Delete('/deleteCustomer')
