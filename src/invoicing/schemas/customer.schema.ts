@@ -1,9 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { Address } from './customer-address.schema';
+import { CustomerAddress } from './customer-address.schema';
 
-@Schema()
-export class InvoiceCustomer extends Document {
+@Schema({
+    timestamps: true
+})
+export class Customer extends Document {
     @Prop({ required: true })
     name: string;
 
@@ -16,11 +18,11 @@ export class InvoiceCustomer extends Document {
     @Prop({ default: false })
     archive: boolean;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Address' })
-    address: Address;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'CustomerAddress' })
+    address: CustomerAddress;
 }
 
-export const InvoiceCustomerSchema = SchemaFactory.createForClass(InvoiceCustomer);
+export const InvoiceCustomerSchema = SchemaFactory.createForClass(Customer);
 
 
 

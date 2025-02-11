@@ -1,16 +1,23 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document, Types } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { Types } from 'mongoose';
 import { InvoiceItem } from './invoice-item';
 import { Customer } from './customer.schema';
 
-export type InvoiceDocument = Invoice & Document;
+export type QuoteDocument = Quote & Document;
 
 @Schema({
     timestamps: true
 })
-export class Invoice {
+export class Quote {
     @Prop({ required: true })
     invoiceNumber: string;
+
+    @Prop({ required: true })
+    customerName: string;
+
+    @Prop({ required: true })
+    customerEmail: string;
 
     @Prop({ required: true })
     amount: number;
@@ -18,17 +25,23 @@ export class Invoice {
     @Prop({ required: true })
     dueDate: Date;
 
+    @Prop({ required: true })
+    issueDate: Date;
+
+    @Prop({ required: true })
+    expiryDate: Date;
+
     @Prop()
     notes: string;
 
     @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItem' }] }) 
     invoiceItems: InvoiceItem[];
 
-    @Prop({ type: mongoose.Types.ObjectId, ref: 'ICustomer', required: true })
+    @Prop({ type: mongoose.Types.ObjectId, ref: 'Customer', required: true })
     customer: Customer;
 
     @Prop({ type: Types.ObjectId, ref: 'User', required: true })
     user: Types.ObjectId;
 }
 
-export const InvoiceSchema = SchemaFactory.createForClass(Invoice);
+export const InvoiceSchema = SchemaFactory.createForClass(Quote);

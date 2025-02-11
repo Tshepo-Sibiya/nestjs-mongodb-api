@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema()
-export class Address extends Document {
+@Schema({
+    timestamps: true
+})
+export class CustomerAddress extends Document {
     @Prop({ required: true })
     addressLineOne: string;
 
@@ -19,4 +21,4 @@ export class Address extends Document {
     postalCode: string;
 }
 
-export const AddressSchema = SchemaFactory.createForClass(Address);
+export const AddressSchema = SchemaFactory.createForClass(CustomerAddress);
