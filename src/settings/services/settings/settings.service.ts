@@ -1,10 +1,10 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/auth/schemas/auth.schemas';
-import { Settings } from 'src/settings/schemas/settings.schemas';
+import { Settings } from 'src/settings/schemas/settings.schema';
 import { Model } from 'mongoose';
-import { UpdateUserSettingsDto } from 'src/users/dto/UpdateUserSettings.dto';
-import { CreateUserSettingsDto } from 'src/users/dto/CreateUserSettings.dto';
+import { UpdateUserSettingsDto } from 'src/users/dto/update-user-settings.dto';
+import { CreateUserSettingsDto } from 'src/users/dto/create-user-settings.dto';
 import { Query } from 'express-serve-static-core';
 
 @Injectable()

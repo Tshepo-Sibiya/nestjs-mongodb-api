@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from 'src/auth/auth.module';
 import { SettingsService } from './services/settings/settings.service';
-import { SettingsSchema } from './schemas/settings.schemas';
+import { SettingsSchema } from './schemas/settings.schema';
 import { SettingsController } from './controllers/settings/settings.controller';
 
 

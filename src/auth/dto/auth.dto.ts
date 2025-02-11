@@ -11,6 +11,9 @@ export class SignUpDto {
     @IsString()
     lastname?: string;
 
+    @IsString()
+    phonenumber?: string;
+
     @IsNotEmpty()
     @IsEmail({}, {message: 'Invalid email'})
     readonly email: string;

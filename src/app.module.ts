@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { SettingsModule } from './settings/settings.module';
+import { InvoicingModule } from './invoicing/invoicing.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { SettingsModule } from './settings/settings.module';
     MongooseModule.forRoot('mongodb://localhost:27017/digitaltransitdb'),
     // UsersModule,
     AuthModule,
-    SettingsModule
+    SettingsModule,
+    InvoicingModule
   ],
   controllers: [],
   providers: [AppService],

@@ -11,6 +11,9 @@ export class Settings {
     @Prop({ required: false })
     biometricsOn: boolean;
 
+    @Prop({ required: false })
+    logoPicture?: string;
+
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
     user: User;
 

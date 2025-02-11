@@ -5,9 +5,9 @@ import mongoose from "mongoose";
 
 
 
-import { UserSettingsService } from "../UserSettingsService/userSettings.service";
-import { CreateUserSettingsDto } from "../dto/CreateUserSettings.dto";
-import { UpdateUserSettingsDto } from "../dto/UpdateUserSettings.dto";
+import { UserSettingsService } from "../user-settings-service/user-settings.service";
+import { CreateUserSettingsDto } from "../dto/create-user-settings.dto";
+import { UpdateUserSettingsDto } from "../dto/update-user-settings.dto";
 
 
 @Controller('usersSettings')
