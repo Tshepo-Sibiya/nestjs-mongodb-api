@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateCustomerDto } from 'src/invoicing/dto/customer-dto/create-customer..dto';
 import { Customer } from 'src/invoicing/schemas/customer.schema';
@@ -28,15 +28,18 @@ export class CustomerController {
 
     @Post('/getUserCustomers/:id')
     @UseGuards(AuthGuard())
-    getCustomersByUserId(@Param('id') id: string,) { 
-        console.log('Its here...');
-        console.log(id);
+    getCustomersByUserId(@Param('id') id: string,) {
+
         return this.customerService.getCustomersByUserId(id);
     }
 
-    @Delete('/deleteCustomer')
-    deleteCustomer() {
-
+    @Delete('/deleteCustomer/:id')
+    async deleteCustomer(@Param('id') id: string,) {
+        try {
+            return await this.customerService.deleteCustomer(id);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

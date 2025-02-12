@@ -29,12 +29,35 @@ export class CustomerService {
 
 
     async updateCustomer(id: string, updateCustomerDto: UpdateCustomerDto) {
-        return await this.customerModel.findByIdAndUpdate(id, updateCustomerDto, { new: true }).exec();;
+        try {
+            const updatedCustomer = await this.customerModel.findByIdAndUpdate(id, updateCustomerDto, { new: true }).exec();
+            if (!updatedCustomer) {
+                throw new NotFoundException('Customer not found');
+            }
+            return { 'Message': 'Customer details successfully updated' };
+        } catch (error) {
+            throw new NotFoundException('Error updating customer');
+        }
     }
 
 
     async getCustomersByUserId(userId: string) {
-        console.log(userId)
-        return await this.customerModel.find({ user: userId }).exec();
+        try {
+            const customers = await this.customerModel.find({ user: userId }).exec();
+            if (!customers || customers.length === 0) {
+                throw new NotFoundException('No customers found for this user');
+            }
+            return customers;
+        } catch (error) {
+            throw new NotFoundException('Error retrieving customers');
+        }
+    }
+
+    async deleteCustomer(id: string) {
+        const deletedCustomer = await this.customerModel.findByIdAndDelete(id).exec();
+        if (!deletedCustomer) {
+            throw new NotFoundException('Customer not found');
+        }
+        return { 'Message': 'Customer deleted successfully' };
     }
 }
