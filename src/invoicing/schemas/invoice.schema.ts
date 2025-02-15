@@ -13,7 +13,7 @@ export class Invoice {
     invoiceNumber: string;
 
     @Prop({ required: true })
-    amount: number;
+    totalAmount: number;
 
     @Prop({ required: true })
     dueDate: Date;

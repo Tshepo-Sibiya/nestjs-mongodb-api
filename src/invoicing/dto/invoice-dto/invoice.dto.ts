@@ -13,7 +13,7 @@ export class InvoiceDto {
 
   @IsNotEmpty()
   @IsNumber()
-  amount: number;
+  totalAmount: number;
 
   @IsNotEmpty()
   @IsArray()

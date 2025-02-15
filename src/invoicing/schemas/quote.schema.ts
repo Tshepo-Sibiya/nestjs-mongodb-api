@@ -11,16 +11,10 @@ export type QuoteDocument = Quote & Document;
 })
 export class Quote {
     @Prop({ required: true })
-    invoiceNumber: string;
+    quoteNumber: string;
 
     @Prop({ required: true })
-    customerName: string;
-
-    @Prop({ required: true })
-    customerEmail: string;
-
-    @Prop({ required: true })
-    amount: number;
+    totalAmount: number;
 
     @Prop({ required: true })
     dueDate: Date;
