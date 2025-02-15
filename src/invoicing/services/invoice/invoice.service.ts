@@ -16,26 +16,6 @@ export class InvoiceService {
         @InjectModel(Customer.name) private customerModel: Model<Customer>,
     ) { }
 
-    // async createInvoice(createInvoiceDto: CreateInvoiceDto): Promise<Invoice> {
-
-    //     const customer = await this.customerModel.findById(createInvoiceDto.customerId).exec();   
-    //     if (!customer) {
-    //         throw new NotFoundException('Customer not found');
-    //     }
-    //     const newInvoice = new this.invoiceModel({
-    //         amount: createInvoiceDto.amount,
-    //         customer: customer,
-    //         dueDate: createInvoiceDto.dueDate,
-    //         notes: createInvoiceDto.notes,
-    //         user: createInvoiceDto,
-    //         invoiceItems: createInvoiceDto.InvoiceItems,
-
-
-    //     });
-
-
-    //     return newInvoice.save();
-    // }
 
 
     async createInvoice(user: User, createInvoiceDto: InvoiceDto): Promise<Invoice> {
@@ -96,7 +76,7 @@ export class InvoiceService {
 
             const _assingedToCustomer = Object.assign(updateInvoiceDto, { customer: customer._id });
 
-            const updatedInvoice = await this.invoiceModel.findByIdAndUpdate(id, _assingedToCustomer, { new: true }).exec();
+            const updatedInvoice = await this.invoiceModel.findOneAndUpdate({_id: id}, _assingedToCustomer, { new: true }).exec();
             if (!updatedInvoice) {
                 throw new NotFoundException('No invoices found for this user');
             }

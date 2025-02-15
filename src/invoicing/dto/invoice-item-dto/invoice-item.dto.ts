@@ -2,7 +2,7 @@ import { IsNotEmpty, IsString, IsNumber, IsOptional, IsDate, ValidateNested, IsA
 import { Type } from 'class-transformer';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
 
-export class CreateInvoiceItemDto {
+export class InvoiceItemDto {
   @IsNotEmpty()
   @IsString()
   description: string;
