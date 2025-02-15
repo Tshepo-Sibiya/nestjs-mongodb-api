@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import { InvoiceDto } from 'src/invoicing/dto/invoice-dto/invoice.dto';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
 import { User } from 'src/auth/schemas/auth.schemas';
+import { UpdateInvoiceDto } from 'src/invoicing/dto/invoice-dto/update-invoice.dto';
 
 @Injectable()
 export class InvoiceService {
@@ -84,7 +85,7 @@ export class InvoiceService {
         return { 'Message': 'Invoice successfully deleted' };
     }
 
-    async updateInvoice(user: User, id: string, updateInvoiceDto: InvoiceDto) {
+    async updateInvoice(user: User, id: string, updateInvoiceDto: UpdateInvoiceDto) {
         try {
 
             const customer = await this.customerModel.findOne({ user: user._id, _id: updateInvoiceDto.customerId }).exec();
@@ -101,7 +102,7 @@ export class InvoiceService {
             }
             return { 'Message': 'Invoice successfully updated' };
         } catch (error) {
-            throw new NotFoundException('Error updating invoice');
+            throw new NotFoundException('Error updating invoice: ' + error.message);
         }
     }
 

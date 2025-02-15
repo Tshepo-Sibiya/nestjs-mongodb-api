@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { InvoiceDto } from 'src/invoicing/dto/invoice-dto/invoice.dto';
+import { UpdateInvoiceDto } from 'src/invoicing/dto/invoice-dto/update-invoice.dto';
 import { Invoice } from 'src/invoicing/schemas/invoice.schema';
 import { InvoiceService } from 'src/invoicing/services/invoice/invoice.service';
 
@@ -23,7 +24,7 @@ export class InvoiceController {
     @Patch('/updateInvoice/:id')
     @UseGuards(AuthGuard())
     async updateInvoice(
-        @Body() updateInvoiceDto: InvoiceDto,
+        @Body() updateInvoiceDto: UpdateInvoiceDto,
         @Param('id') id: string,
         @Req() req,
     ) {
