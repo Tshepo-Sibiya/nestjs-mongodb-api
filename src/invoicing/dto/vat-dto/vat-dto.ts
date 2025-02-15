@@ -4,15 +4,18 @@ import { InvoiceItem } from "src/invoicing/schemas/invoice-item.schema";
 
 export class VatDto {
 
-    @IsString()
-    rate: number;
-  
-    @IsNotEmpty()
-    @IsString()
-    startDate: Date;
-  
+
     @IsNotEmpty()
     @IsNumber()
+    rate: number;
+  
+
+    @Type(() => Date)
+    @IsDate()
+    startDate: Date;
+  
+    @Type(() => Date)
+    @IsDate()
     endDate: Date;
   
   
