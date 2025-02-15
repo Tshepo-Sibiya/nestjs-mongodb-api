@@ -2,6 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
 
+export type InvoiceAccountDetailsDocument = InvoiceAccountDetails & Document;
+
 @Schema({
     timestamps: true
 })
@@ -23,4 +25,4 @@ export class InvoiceAccountDetails {
     user: Types.ObjectId;
 }
 
-export const InvoiceAccountSchema = SchemaFactory.createForClass(InvoiceAccountDetails);
+export const InvoiceAccountDetailsSchema = SchemaFactory.createForClass(InvoiceAccountDetails);

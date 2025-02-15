@@ -9,7 +9,6 @@ export class VatDto {
     @IsNumber()
     rate: number;
   
-
     @Type(() => Date)
     @IsDate()
     startDate: Date;

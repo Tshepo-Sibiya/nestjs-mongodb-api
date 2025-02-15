@@ -17,13 +17,15 @@ import { Quote, QuoteSchema } from './schemas/quote.schema';
 import { AuthModule } from 'src/auth/auth.module';
 import { InvoiceItemService } from './services/invoice-item/invoice-item.service';
 import { Customer, CustomerSchema } from './schemas/customer.schema';
-import { InvoiceAccountDetails, InvoiceAccountSchema } from './schemas/invoice-account-details.schema';
+import { InvoiceAccountDetails, InvoiceAccountDetailsSchema } from './schemas/invoice-account-details.schema';
 import { InvoiceSettingsController } from './controllers/invoice-settings/invoice-settings.controller';
 import { CustomerController } from './controllers/customer/customer.controller';
 import { CustomerService } from './services/customer/customer.service';
 import { VatRateController } from './controllers/vat-rate/vat-rate.controller';
 import { VatRateService } from './services/vat/vat-rate.service';
 import { VatRate, VatRateSchema } from './schemas/vat.schema';
+import { InvoiceAccountDetailsController } from './controllers/invoice-account-details/invoice-account-details.controller';
+import { InvoiceAcccountDetailsService } from './services/invoice-account-details/invoice-account-details.service';
 
 @Module({
     imports: [
@@ -64,7 +66,7 @@ import { VatRate, VatRateSchema } from './schemas/vat.schema';
             },
             {
                 name: InvoiceAccountDetails.name,
-                schema: InvoiceAccountSchema,
+                schema: InvoiceAccountDetailsSchema,
             },
             {
                 name: VatRate.name,
@@ -73,8 +75,8 @@ import { VatRate, VatRateSchema } from './schemas/vat.schema';
 
         ])
     ],
-    controllers: [InvoiceController,VatRateController, InvoiceItemController, QuoteController, InvoiceSettingsController, CustomerController],
-    providers: [QuoteService, InvoiceService,VatRateService, InvoiceItemService, CustomerService, InvoiceSettingsService, JwtStrategy],
+    controllers: [InvoiceController, VatRateController, InvoiceAccountDetailsController, InvoiceItemController, QuoteController, InvoiceSettingsController, CustomerController],
+    providers: [QuoteService, InvoiceService, InvoiceAcccountDetailsService, VatRateService, InvoiceItemService, CustomerService, InvoiceSettingsService, JwtStrategy],
     exports: [JwtStrategy, PassportModule, MongooseModule],
 })
 export class InvoicingModule {
