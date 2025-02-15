@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { User } from 'src/auth/schemas/auth.schemas';
 import { CreateCustomerDto } from 'src/invoicing/dto/customer-dto/create-customer..dto';
 import { UpdateCustomerDto } from 'src/invoicing/dto/customer-dto/update-customer.dto';
-import { CreateInvoiceDto } from 'src/invoicing/dto/invoice-dto/create-invoice.dto';
+import { InvoiceDto } from 'src/invoicing/dto/invoice-dto/invoice.dto';
 import { Customer } from 'src/invoicing/schemas/customer.schema';
 
 @Injectable()
@@ -28,9 +28,10 @@ export class CustomerService {
     }
 
 
-    async updateCustomer(id: string, updateCustomerDto: UpdateCustomerDto) {
+    async updateCustomer(id: string, updateCustomerDto: UpdateCustomerDto, userId: string) {
         try {
-            const updatedCustomer = await this.customerModel.findByIdAndUpdate(id, updateCustomerDto, { new: true }).exec();
+            const updatedCustomer = await this.customerModel.findOneAndUpdate({_id: id, user: userId}, updateCustomerDto, { new: true }).exec();
+            console.log('Here: ' + updatedCustomer);
             if (!updatedCustomer) {
                 throw new NotFoundException('Customer not found');
             }
@@ -53,8 +54,8 @@ export class CustomerService {
         }
     }
 
-    async deleteCustomer(id: string) {
-        const deletedCustomer = await this.customerModel.findByIdAndDelete(id).exec();
+    async deleteCustomer(id: string, userId: string) {
+        const deletedCustomer = await this.customerModel.findByIdAndDelete({_id: id, user: userId}).exec();
         if (!deletedCustomer) {
             throw new NotFoundException('Customer not found');
         }

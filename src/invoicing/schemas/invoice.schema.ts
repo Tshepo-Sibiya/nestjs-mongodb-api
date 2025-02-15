@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, Types } from 'mongoose';
-import { InvoiceItem } from './invoice-item';
+import { InvoiceItem } from './invoice-item.schema';
 import { Customer } from './customer.schema';
 
 export type InvoiceDocument = Invoice & Document;
@@ -13,9 +13,6 @@ export class Invoice {
     invoiceNumber: string;
 
     @Prop({ required: true })
-    customerId: string;
-
-    @Prop({ required: true })
     amount: number;
 
     @Prop({ required: true })
@@ -24,7 +21,7 @@ export class Invoice {
     @Prop()
     notes: string;
 
-    @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItem' }] }) 
+    @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItems' }] }) 
     invoiceItems: InvoiceItem[];
 
     @Prop({ type: mongoose.Types.ObjectId, ref: 'Customer', required: true })

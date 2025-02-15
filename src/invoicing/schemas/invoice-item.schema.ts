@@ -7,23 +7,16 @@ import { Invoice } from './invoice.schema';
     timestamps: true
 })
 export class InvoiceItem extends Document {
-    @Prop({ required: true })
-    additionalDetails: string;
+
 
     @Prop({ required: true })
     description: string;
 
     @Prop({ required: true })
-    itemId: number;
+    amount: number;
 
-    @Prop({ required: true })
-    rate: number;
-
-    @Prop({ required: true })
-    status: string;
-
-    @Prop({ required: true })
-    taxable: boolean;
+    @Prop({ default: false })
+    archived: boolean;
 
     @Prop({ type: mongoose.Types.ObjectId, ref: 'Invoice', required: true })
     invoice: Invoice;

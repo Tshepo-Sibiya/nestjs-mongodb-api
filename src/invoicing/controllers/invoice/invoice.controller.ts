@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Patch, Post, Req } from '@nestjs/common';
-import { CreateInvoiceDto } from 'src/invoicing/dto/invoice-dto/create-invoice.dto';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { InvoiceDto } from 'src/invoicing/dto/invoice-dto/invoice.dto';
 import { Invoice } from 'src/invoicing/schemas/invoice.schema';
 import { InvoiceService } from 'src/invoicing/services/invoice/invoice.service';
 
@@ -9,25 +10,48 @@ export class InvoiceController {
 
     }
     @Post('/createInvoice')
+    @UseGuards(AuthGuard())
     async create(
-        @Body() createInvoiceDto: CreateInvoiceDto,
+        @Body() createInvoiceDto: InvoiceDto,
         @Req() req,
     ): Promise<Invoice> {
-        return this.invoiceService.createInvoice(createInvoiceDto);
+
+        return await this.invoiceService.createInvoice(req.user, createInvoiceDto);
+
     }
 
-    @Patch('/updateInvoice')
-    updateInvoice() {
-
+    @Patch('/updateInvoice/:id')
+    @UseGuards(AuthGuard())
+    async updateInvoice(
+        @Body() updateInvoiceDto: InvoiceDto,
+        @Param('id') id: string,
+        @Req() req,
+    ) {
+        try {
+            return await this.invoiceService.updateInvoice(req.user, id, updateInvoiceDto);
+        } catch (error) {
+            // Handle error appropriately
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Get('/getInvoices')
-    getInvoices() {
-
+    @UseGuards(AuthGuard())
+    async getInvoices(@Req() req,) {
+        try {
+            return await this.invoiceService.getInvoicesByUserId(req.user._id);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @Delete('/deleteInvoice')
-    deleteInvoice() {
-
+    @Delete('/deleteInvoice/:id')
+    @UseGuards(AuthGuard())
+    async deleteInvoice(@Param('id') id: string,) {
+        try {
+            return await this.invoiceService.deleteInvoice(id);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+        }
     }
 }

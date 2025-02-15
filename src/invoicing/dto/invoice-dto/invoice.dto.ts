@@ -1,8 +1,9 @@
-import { IsNotEmpty, IsString, IsNumber, IsOptional, IsDate, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsOptional, IsDate, ValidateNested, IsArray } from 'class-validator';
 import { Type } from 'class-transformer';
+import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
 
-export class CreateInvoiceDto {
-  @IsNotEmpty()
+export class InvoiceDto {
+
   @IsString()
   invoiceNumber: string;
 
@@ -15,6 +16,10 @@ export class CreateInvoiceDto {
   amount: number;
 
   @IsNotEmpty()
+  @IsArray()
+  invoiceItems: InvoiceItem[];
+
+  @IsNotEmpty()
   @Type(() => Date)
   @IsDate()
   dueDate: Date;
@@ -22,6 +27,5 @@ export class CreateInvoiceDto {
   @IsOptional()
   @IsString()
   notes?: string;
-
 
 }

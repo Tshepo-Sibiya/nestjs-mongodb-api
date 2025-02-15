@@ -16,27 +16,30 @@ export class CustomerController {
         @Req() req,
 
     ): Promise<Customer> {
+        console.log(req);
         return this.customerService.createCustomer(req.user, createCustomerDto);
     }
 
 
     @Patch('/updateCustomer/:id')
     @UseGuards(AuthGuard())
-    async updateCustomer(@Param('id') id: string, @Body() updateCustomerDto: CreateCustomerDto) {
-        return this.customerService.updateCustomer(id, updateCustomerDto);
+    async updateCustomer(@Req() req, @Param('id') id: string, @Body() updateCustomerDto: CreateCustomerDto) {
+        return this.customerService.updateCustomer(id, updateCustomerDto, req.user._id);
     }
 
-    @Post('/getUserCustomers/:id')
+    @Post('/getUserCustomers')
     @UseGuards(AuthGuard())
-    getCustomersByUserId(@Param('id') id: string,) {
+    getCustomersByUserId(@Req() req,) {
 
-        return this.customerService.getCustomersByUserId(id);
+        return this.customerService.getCustomersByUserId(req.user._id);
     }
 
     @Delete('/deleteCustomer/:id')
-    async deleteCustomer(@Param('id') id: string,) {
+    @UseGuards(AuthGuard())
+    async deleteCustomer(@Req() req, @Param('id') id: string,) {
         try {
-            return await this.customerService.deleteCustomer(id);
+            console.log('req is: ' + req.user);
+            return await this.customerService.deleteCustomer(id, req.user._id);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }

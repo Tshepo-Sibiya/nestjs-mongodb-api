@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
-import { InvoiceItem } from "src/invoicing/schemas/invoice-item";
+import { InvoiceItem } from "src/invoicing/schemas/invoice-item.schema";
 import { Invoice } from "src/invoicing/schemas/invoice.schema";
 
 
