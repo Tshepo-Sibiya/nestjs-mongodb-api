@@ -7,25 +7,25 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('userSettings')
 export class SettingsController {
-    constructor(private settingsService: SettingsService) {
+  constructor(private settingsService: SettingsService) {
 
-    }
+  }
 
-    @Get('/getAllUsersSettings')
-    @UseGuards(AuthGuard())
-    async getAllSettings(@Query() query: ExpressQuery): Promise<Settings[]> {
-      return this.settingsService.findAll(query);
-    }
+  @Get('/getUserSettings')
+  @UseGuards(AuthGuard())
+  async getUserSettings(@Req() req) {
+    return this.settingsService.GetUserSettingsById(req.user._id);
+  }
 
 
-    @Post('/createUserSettings')
-    @UseGuards(AuthGuard())
-    async createUserSettings(
-      @Body()
-      settings: CreateSettingsDto,
-      @Req() req,
-    ): Promise<Settings> {
-      return this.settingsService.createOrUpdateSettings(req.user, settings);
-    }
+  @Post('/createOrUpdateUserSettings')
+  @UseGuards(AuthGuard())
+  async createOrUpdateUserSettings(
+    @Body()
+    settings: CreateSettingsDto,
+    @Req() req,
+  ): Promise<Settings> {
+    return this.settingsService.createOrUpdateSettings(req.user, settings);
+  }
 
 }
