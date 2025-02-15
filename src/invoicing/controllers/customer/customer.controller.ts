@@ -33,6 +33,7 @@ export class CustomerController {
 
         return this.customerService.getCustomersByUserId(req.user._id);
     }
+    
 
     @Delete('/deleteCustomer/:id')
     @UseGuards(AuthGuard())
