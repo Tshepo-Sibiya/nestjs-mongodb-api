@@ -18,6 +18,9 @@ export class User extends Document {
     lastname: string;
 
     @Prop({ required: false })
+    title: string;
+
+    @Prop({ required: false })
     phonenumber: string;
 
     @Prop({ unique: [true, 'Email already exists'], required: true })

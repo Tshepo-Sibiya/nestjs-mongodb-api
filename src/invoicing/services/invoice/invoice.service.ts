@@ -7,6 +7,9 @@ import { InvoiceDto } from 'src/invoicing/dto/invoice-dto/invoice.dto';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
 import { User } from 'src/auth/schemas/auth.schemas';
 import { UpdateInvoiceDto } from 'src/invoicing/dto/invoice-dto/update-invoice.dto';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as PDFDocument from 'pdfkit';
 
 @Injectable()
 export class InvoiceService {
@@ -102,6 +105,109 @@ export class InvoiceService {
         // Format the invoice number
         return `INV-${month}-${year}-${increment}`;
     }
+
+    generatePDF(): string {
+        const filePath = path.join(__dirname, '..', '..', 'Invoice.pdf');
+      
+        const doc = new PDFDocument({
+            size: 'A4',             // Page size
+            margins: {              // Set margins
+              top: 50,
+              bottom: 50,
+              left: 50,
+              right: 50
+            }
+          });
+          
+          // Stream the output to a file
+          doc.pipe(fs.createWriteStream(filePath));
+          
+          // Add a Title with Styling
+          doc
+            .font('Helvetica-Bold')
+            .fontSize(24)
+            .fillColor('#333333')
+            .text('Complex PDF Example', {
+              align: 'center',
+              underline: true
+            })
+            .moveDown(1.5);
+          
+          // Draw a Line Under the Title
+          doc
+            .moveTo(50, 100)
+            .lineTo(550, 100)
+            .strokeColor('#aaaaaa')
+            .lineWidth(1)
+            .stroke();
+          
+          // Add an Image
+          doc
+            .image('/Users/itdigitalsolutionssasfin/Documents/Tshepo Sibiya/Applications/APIs/nestjs-mongodb-demo/src/assets/image101.jpeg', {
+              fit: [500, 300],
+              align: 'center',
+              valign: 'center'
+            })
+            .moveDown(1);
+          
+          // Add Styled Text
+          doc
+            .font('Helvetica')
+            .fontSize(16)
+            .fillColor('#555555')
+            .text('This is a more complex example of using PDFKit to generate a styled PDF document. ', {
+              align: 'justify'
+            })
+            .moveDown(0.5);
+          
+          doc
+            .font('Helvetica-Oblique')
+            .fontSize(14)
+            .fillColor('#777777')
+            .text('You can easily style text, add images, and draw shapes. ', {
+              align: 'justify'
+            })
+            .moveDown(0.5);
+          
+          doc
+            .font('Helvetica-Bold')
+            .fontSize(18)
+            .fillColor('#222222')
+            .text('PDFKit is powerful!', {
+              align: 'center'
+            })
+            .moveDown(1);
+          
+          // Draw a Rectangle with a Fill Color
+          doc
+            .rect(50, doc.y, 500, 100)
+            .fillAndStroke('#f2f2f2', '#cccccc');
+          
+          // Add Text Inside the Rectangle
+          doc
+            .fillColor('#444444')
+            .font('Helvetica')
+            .fontSize(14)
+            .text('This rectangle is drawn with custom colors and contains text inside.', 60, doc.y + 10, {
+              width: 480,
+              align: 'left'
+            })
+            .moveDown(2);
+          
+          // Footer
+          doc
+            .font('Helvetica-Oblique')
+            .fontSize(10)
+            .fillColor('#888888')
+            .text('Generated using PDFKit in NestJS', 50, 750, {
+              align: 'center'
+            });
+          
+          // Finalize the PDF and end the stream
+          doc.end();
+    
+        return filePath;
+      }
 
 }
 
