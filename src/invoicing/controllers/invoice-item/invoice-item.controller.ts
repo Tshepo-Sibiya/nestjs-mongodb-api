@@ -51,9 +51,9 @@ export class InvoiceItemController {
 
     @Delete('/deleteInvoiceItem/:id')
     @UseGuards(AuthGuard())
-    async deleteInvoiceItem(@Param('id') id: string,) {
+    async deleteInvoiceItem(@Req() req, @Param('id') id: string,) {
         try {
-            return await this.invoiceItemService.deleteInvoiceItem(id);
+            return await this.invoiceItemService.deleteInvoiceItem(id, req.user._id);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }

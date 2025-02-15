@@ -57,8 +57,8 @@ export class InvoiceService {
         }
     }
 
-    async deleteInvoice(id: string) {
-        const deletedInvoice = await this.invoiceModel.findByIdAndDelete(id).exec();
+    async deleteInvoice(id: string, userId: string) {
+        const deletedInvoice = await this.invoiceModel.findOneAndDelete({_id: id, user: userId}).exec();
         if (!deletedInvoice) {
             throw new NotFoundException('Invoice not found');
         }

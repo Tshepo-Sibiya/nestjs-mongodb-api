@@ -55,7 +55,7 @@ export class CustomerService {
     }
 
     async deleteCustomer(id: string, userId: string) {
-        const deletedCustomer = await this.customerModel.findByIdAndDelete({_id: id, user: userId}).exec();
+        const deletedCustomer = await this.customerModel.findOneAndDelete({_id: id, user: userId}).exec();
         if (!deletedCustomer) {
             throw new NotFoundException('Customer not found');
         }
