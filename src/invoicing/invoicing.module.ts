@@ -6,30 +6,25 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from 'src/auth/strategy/jwt.strategy';
+import { JwtStrategy } from 'src/user/strategy/jwt.strategy';
 import { Invoice, InvoiceSchema } from './schemas/invoice.schema';
 import { InvoiceItem, InvoiceItemSchema } from './schemas/invoice-item.schema';
-import { InvoiceSettings, InvoiceSettingsSchema } from './schemas/invoice-settings.schema';
+
 import { QuoteService } from './services/quote/quote.service';
-import { InvoiceService } from './services/invoice/invoice.service';
-import { InvoiceSettingsService } from './services/invoice-settings/invoice-settings.service';
 import { Quote, QuoteSchema } from './schemas/quote.schema';
-import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
 import { InvoiceItemService } from './services/invoice-item/invoice-item.service';
 import { Customer, CustomerSchema } from './schemas/customer.schema';
-import { InvoiceAccountDetails, InvoiceAccountDetailsSchema } from './schemas/invoice-account-details.schema';
-import { InvoiceSettingsController } from './controllers/invoice-settings/invoice-settings.controller';
 import { CustomerController } from './controllers/customer/customer.controller';
 import { CustomerService } from './services/customer/customer.service';
 import { VatRateController } from './controllers/vat-rate/vat-rate.controller';
 import { VatRateService } from './services/vat/vat-rate.service';
 import { VatRate, VatRateSchema } from './schemas/vat.schema';
-import { InvoiceAccountDetailsController } from './controllers/invoice-account-details/invoice-account-details.controller';
-import { InvoiceAcccountDetailsService } from './services/invoice-account-details/invoice-account-details.service';
+import { InvoiceService } from './services/invoice/invoice.service';
 
 @Module({
     imports: [
-        AuthModule,
+        UserModule,
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.registerAsync({
             inject: [ConfigService],
@@ -53,10 +48,6 @@ import { InvoiceAcccountDetailsService } from './services/invoice-account-detail
                 schema: InvoiceItemSchema,
             },
             {
-                name: InvoiceSettings.name,
-                schema: InvoiceSettingsSchema,
-            },
-            {
                 name: Quote.name,
                 schema: QuoteSchema,
             },
@@ -65,18 +56,14 @@ import { InvoiceAcccountDetailsService } from './services/invoice-account-detail
                 schema: CustomerSchema,
             },
             {
-                name: InvoiceAccountDetails.name,
-                schema: InvoiceAccountDetailsSchema,
-            },
-            {
                 name: VatRate.name,
                 schema: VatRateSchema,
             },
 
         ])
     ],
-    controllers: [InvoiceController, VatRateController, InvoiceAccountDetailsController, InvoiceItemController, QuoteController, InvoiceSettingsController, CustomerController],
-    providers: [QuoteService, InvoiceService, InvoiceAcccountDetailsService, VatRateService, InvoiceItemService, CustomerService, InvoiceSettingsService, JwtStrategy],
+    controllers: [InvoiceController, VatRateController, InvoiceItemController, QuoteController, CustomerController],
+    providers: [QuoteService, InvoiceService, VatRateService, InvoiceItemService, CustomerService, JwtStrategy],
     exports: [JwtStrategy, PassportModule, MongooseModule],
 })
 export class InvoicingModule {

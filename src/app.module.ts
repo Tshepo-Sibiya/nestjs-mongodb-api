@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
+
+
 import { ConfigModule } from '@nestjs/config';
-import { SettingsModule } from './settings/settings.module';
 import { InvoicingModule } from './invoicing/invoicing.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -14,8 +14,7 @@ import { InvoicingModule } from './invoicing/invoicing.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/digitaltransitdb'),
-    AuthModule,
-    SettingsModule,
+    UserModule,
     InvoicingModule
   ],
   controllers: [],

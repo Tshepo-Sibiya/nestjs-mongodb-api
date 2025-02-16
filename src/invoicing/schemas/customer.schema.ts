@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { CustomerAddress } from './customer-address.schema';
-import { User } from 'src/schemas/user.schema';
+import { User } from 'src/user/schemas/user.schemas';
+
 
 @Schema({
     timestamps: true

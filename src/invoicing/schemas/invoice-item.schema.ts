@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { User } from 'src/auth/schemas/auth.schemas';
+import { User } from 'src/user/schemas/user.schemas';
 
 export type InvoiceItemDocument = InvoiceItem & Document;
 
