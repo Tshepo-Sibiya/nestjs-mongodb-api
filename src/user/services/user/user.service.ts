@@ -1,44 +1,72 @@
-import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/user/schemas/user.schemas';
 import { Model } from 'mongoose';
 
 import * as bcrypt from 'bcrypt';
-import { SignUpDto } from 'src/user/dto/create-user.dto';
+
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from 'src/user/dto/login.dto';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
+import { Individual } from 'src/user/schemas/individual.schema';
+import { Business } from 'src/user/schemas/business.schema';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Individual.name) private individualModel: Model<Individual>,
+    @InjectModel(Business.name) private businessModel: Model<Business>,
     private jwtService: JwtService
   ) {
 
   }
 
-  async signUp(signUpDto: SignUpDto): Promise<any> {
+  async signUp(createUserDto: CreateUserDto): Promise<any> {
+    const { userType, businessProfile, individualProfile, email, password } = createUserDto;
 
-    const { firstname, lastname, email, password, title, initials } = signUpDto;
-
-    const _user = await this.userModel.findOne({ email });
-    if (_user != null) {
+    // Check if email already exists
+    const existingUser = await this.userModel.findOne({ email });
+    if (existingUser) {
       throw new ConflictException('Email already taken.');
     }
 
-    const user = await this.userModel.create({
-      firstname,
-      lastname,
-      title,
-      initials,
+    // Create the User first
+    let user = new this.userModel({
       email,
-      password: await bcrypt.hash(password, 10)
+      password: await bcrypt.hash(password, 10),
+      userType,
     });
+    let savedUser = await user.save();
 
-    const token = this.jwtService.sign({ id: user._id });
+    // Create Profile and link to User
+    if (userType === 'individual') {
+      const individual = await this.individualModel.create({
+        ...individualProfile,
+        user: savedUser._id,
+      });
+      savedUser.individualProfile = individual._id;
+    } else if (userType === 'business') {
+      const business = await this.businessModel.create({
+        ...businessProfile,
+        user: savedUser._id,
+      });
+      savedUser.businessProfile = business._id;
+    } else {
+      throw new BadRequestException('Invalid userType');
+    }
 
-    return { user };
+
+    // Save User with profile reference
+    await savedUser.save();
+
+    // Generate JWT Token
+
+
+    return {
+      message: 'User successfully created.',
+    };
   }
 
   async login(loginDto: LoginDto): Promise<{ token: string }> {
@@ -63,26 +91,68 @@ export class UserService {
 
   async getProfileDetails(userId: string) {
     try {
+      // Fetch the user to check the userType first
       const user = await this.userModel.findById(userId).lean().exec();
+
       if (!user) {
         throw new UnauthorizedException('User not found');
       }
 
-      const { password, ...userWithoutPassword } = user;
+      // Determine which profile to populate
+      let populatedUser;
+      if (user.userType === 'individual') {
+        populatedUser = await this.userModel
+          .findById(userId)
+          .populate({ path: 'individualProfile', model: 'Individual' })
+          .lean()
+          .exec();
+      } else if (user.userType === 'business') {
+        populatedUser = await this.userModel
+          .findById(userId)
+          .populate({ path: 'businessProfile', model: 'Business' })
+          .lean()
+          .exec();
+      } else {
+        populatedUser = user;
+      }
+
+      // Exclude the password from the response
+      const { password, ...userWithoutPassword } = populatedUser;
       return userWithoutPassword;
     } catch (error) {
       throw new UnauthorizedException('Could not retrieve user profile');
     }
   }
 
+
+
   async updateUserdetails(id: string, userUpdateDto: UpdateUserDto): Promise<User> {
-
-    const newUserDetails = await this.userModel.findOneAndUpdate({ _id: id }, userUpdateDto, { new: true }).exec();
-
-    if (!newUserDetails) {
+    const { userType, businessProfile, individualProfile, ...updateData } = userUpdateDto;
+  
+    // Update the User first
+    const updatedUser = await this.userModel.findOneAndUpdate({ _id: id }, updateData, { new: true })
+      .populate(userType == 'business' ? { path: 'businessProfile', model: 'Business' } : { path: 'individualProfile', model: 'Individual' })
+      .exec();
+  
+    if (!updatedUser) {
       throw new NotFoundException('User not found after update');
     }
-    return newUserDetails;
+  
+    // Update Profile based on userType
+    if (userType === 'individual' && individualProfile) {
+      const updatedIndividual = await this.individualModel.findOneAndUpdate({ user: id }, individualProfile, { new: true }).exec();
+      if (updatedIndividual) {
+        updatedUser.individualProfile = updatedIndividual._id;
+      }
+    } else if (userType === 'business' && businessProfile) {
+      const updatedBusiness = await this.businessModel.findOneAndUpdate({ user: id }, businessProfile, { new: true }).exec();
+      if (updatedBusiness) {
+        updatedUser.businessProfile = updatedBusiness._id;
+      }
+    }
+  
+    return updatedUser;
   }
+  
 
 }

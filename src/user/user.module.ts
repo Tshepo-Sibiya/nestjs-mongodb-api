@@ -16,6 +16,8 @@ import { UserController } from './controllers/user/user.controller';
 import { AddressDetailsController } from './controllers/address-details/address-details.controller';
 import { AddressDetailsService } from './services/address-details/address-details.service';
 import { AddressDetails, AddressDetailsSchema } from './schemas/address-details.schema';
+import { Business, BusinessSchema } from './schemas/business.schema';
+import { Individual, IndividualSchema } from './schemas/individual.schema';
 
 
 
@@ -51,7 +53,15 @@ import { AddressDetails, AddressDetailsSchema } from './schemas/address-details.
             {
                 name: AddressDetails.name,
                 schema: AddressDetailsSchema,
-            }
+            },
+            {
+                name: Individual.name,
+                schema: IndividualSchema
+            },
+            {
+                name: Business.name,
+                schema: BusinessSchema
+            },
 
         ])
     ],

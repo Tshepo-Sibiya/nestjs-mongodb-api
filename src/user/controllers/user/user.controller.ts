@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { SignUpDto } from 'src/user/dto/create-user.dto';
+
 import { LoginDto } from 'src/user/dto/login.dto';
 import { UserService } from 'src/user/services/user/user.service';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 import { User } from 'src/user/schemas/user.schemas';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -14,7 +15,7 @@ export class UserController {
 
 
     @Post('/signup')
-    signUp(@Body() signUpDto: SignUpDto): Promise<{ token: string }> {
+    signUp(@Body() signUpDto: CreateUserDto): Promise<{ token: string }> {
         return this.authService.signUp(signUpDto);
     }
 
@@ -31,8 +32,8 @@ export class UserController {
 
     @Patch('/updateUserDetails')
     @UseGuards(AuthGuard())
-    updateUserDetails(@Req() req,@Body() updateUser: UpdateUserDto): Promise<User> {
-        return this.authService.updateUserdetails(req.user._id,updateUser);
+    async updateUserDetails(@Req() req,@Body() updateUser: UpdateUserDto): Promise<User> {
+        return await this.authService.updateUserdetails(req.user._id,updateUser);
     }
 
 }
