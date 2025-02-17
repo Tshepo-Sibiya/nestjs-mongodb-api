@@ -1,6 +1,6 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/user/schemas/user.schemas';
+import { User } from 'src/user/schemas/user.schema';
 import { VatDto } from 'src/invoicing/dto/vat-dto/vat-dto';
 import { VatRate } from 'src/invoicing/schemas/vat.schema';
 import { Model } from 'mongoose';

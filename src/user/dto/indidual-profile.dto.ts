@@ -20,7 +20,5 @@ export class IndividualProfileDto {
     @IsOptional()
     dateOfBirth?: Date;
   
-    @IsString()
-    @IsOptional()
-    phoneNumber?: string;
+
   }

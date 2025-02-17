@@ -28,6 +28,10 @@ import { IndividualProfileDto } from './indidual-profile.dto';
     @IsNotEmpty()
     @IsEmail({}, { message: 'Invalid email' })
     readonly email: string;
+
+    @IsString()
+    @IsOptional()
+    phoneNumber?: string;
   
     @IsNotEmpty()
     @IsString()

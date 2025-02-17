@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { LoginDto } from 'src/user/dto/login.dto';
 import { UserService } from 'src/user/services/user/user.service';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
-import { User } from 'src/user/schemas/user.schemas';
+import { User } from 'src/user/schemas/user.schema';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @Controller('user')

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
 import { Model } from 'mongoose';
 import { InvoiceItemDto } from 'src/invoicing/dto/invoice-item-dto/invoice-item.dto';
-import { User } from 'src/user/schemas/user.schemas';
+import { User } from 'src/user/schemas/user.schema';
 
 
 @Injectable()

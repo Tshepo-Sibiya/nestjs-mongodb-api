@@ -1,6 +1,6 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/user/schemas/user.schemas';
+import { User } from 'src/user/schemas/user.schema';
 
 import { Model } from 'mongoose';
 import { BankAccountDetailsDto } from 'src/user/dto/bank-account-details.dto';

@@ -17,7 +17,5 @@ export class BusinessProfileDto {
     @IsNotEmpty()
     contactPerson: string;
   
-    @IsString()
-    @IsOptional()
-    phoneNumber?: string;
+
   }

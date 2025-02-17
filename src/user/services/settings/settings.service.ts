@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/user/schemas/user.schemas';
+import { User } from 'src/user/schemas/user.schema';
 import { Model } from 'mongoose';
 
 import { Query } from 'express-serve-static-core';

@@ -5,7 +5,7 @@ import { Invoice } from 'src/invoicing/schemas/invoice.schema';
 import { Model } from 'mongoose';
 import { InvoiceDto } from 'src/invoicing/dto/invoice-dto/invoice.dto';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
-import { User } from 'src/user/schemas/user.schemas';
+import { User } from 'src/user/schemas/user.schema';
 import { UpdateInvoiceDto } from 'src/invoicing/dto/invoice-dto/update-invoice.dto';
 import * as fs from 'fs';
 import * as path from 'path';

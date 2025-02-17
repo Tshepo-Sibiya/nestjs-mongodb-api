@@ -15,9 +15,11 @@ export class User extends Document {
     @Prop({ unique: [true, 'Email already exists'], required: true })
     email: string;
 
+    @Prop({ unique: false, required: false })
+    phoneNumber: string;
+
     @Prop({ unique: true, required: true })
     password: string;
-
 
     @Prop({ required: true, enum: ['individual', 'business'] })
     userType: string;

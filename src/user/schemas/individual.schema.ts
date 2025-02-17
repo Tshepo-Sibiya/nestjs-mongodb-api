@@ -19,9 +19,6 @@ export class Individual {
 
     @Prop()
     dateOfBirth: Date;
-
-    @Prop()
-    phoneNumber: string;
     
     @Prop({ type: Types.ObjectId, ref: 'User', required: true })
     user: Types.ObjectId;

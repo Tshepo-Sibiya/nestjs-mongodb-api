@@ -4,7 +4,7 @@ import { Customer } from 'src/invoicing/schemas/customer.schema';
 
 import { Model } from 'mongoose';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
-import { User } from 'src/user/schemas/user.schemas';
+import { User } from 'src/user/schemas/user.schema';
 
 import { CreateQuoteDto } from 'src/invoicing/dto/quote-dto/create-quote.dto';
 import { Quote } from 'src/invoicing/schemas/quote.schema';
