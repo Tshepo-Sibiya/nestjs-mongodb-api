@@ -13,6 +13,7 @@ import {
   import { Type } from 'class-transformer';
 import { BusinessProfileDto } from './business-profile.dto';
 import { IndividualProfileDto } from './indidual-profile.dto';
+import { ApiProperty } from '@nestjs/swagger';
   
   
   
@@ -25,17 +26,30 @@ import { IndividualProfileDto } from './indidual-profile.dto';
     })
     userType: string;
   
+
+    @ApiProperty({
+      example: 'example@mail.com',
+      description: 'This is the email addresss of the user.',
+    })
     @IsNotEmpty()
     @IsEmail({}, { message: 'Invalid email' })
     readonly email: string;
 
     @IsString()
     @IsOptional()
+    @ApiProperty({
+      example: '0727401058',
+      description: 'This is the phone number of the user.',
+    })
     phoneNumber?: string;
   
     @IsNotEmpty()
     @IsString()
     @MinLength(6)
+    @ApiProperty({
+      example: '@Password123',
+      description: 'This is password of the user.',
+    })
     @Matches(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/, {
       message:
         'Password must contain at least one uppercase letter, one number, and one special character.',

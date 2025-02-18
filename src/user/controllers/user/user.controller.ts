@@ -6,6 +6,7 @@ import { UserService } from 'src/user/services/user/user.service';
 import { UpdateUserDto } from 'src/user/dto/update-user.dto';
 import { User } from 'src/user/schemas/user.schema';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {
@@ -15,6 +16,9 @@ export class UserController {
 
 
     @Post('/signup')
+    @ApiOperation({ summary: 'Create a new user' })
+    @ApiResponse({ status: 201, description: 'User successfully created.' })
+    @ApiResponse({ status: 400, description: 'Invalid input.' })
     signUp(@Body() signUpDto: CreateUserDto): Promise<{ token: string }> {
         return this.authService.signUp(signUpDto);
     }
