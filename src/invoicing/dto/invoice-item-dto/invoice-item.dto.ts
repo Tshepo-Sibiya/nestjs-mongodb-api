@@ -9,7 +9,27 @@ export class InvoiceItemDto {
 
   @IsNotEmpty()
   @IsNumber()
-  amount: number;
+  price: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  quantity: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  discount: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  totalLineCost: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  vat: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  vatLineAmount: number;
 
   @IsBoolean()
   archived: boolean;

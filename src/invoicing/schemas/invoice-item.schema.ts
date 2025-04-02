@@ -13,7 +13,22 @@ export class InvoiceItem extends Document {
     description: string;
 
     @Prop({ required: true })
-    amount: number;
+    price: number;
+
+    @Prop({ required: true })
+    quantity: number;
+
+    @Prop({ required: true })
+    discount: number;
+
+    @Prop({ default: false })
+    totalLineCost: number;
+
+    @Prop({ default: false })
+    vat: number;
+
+    @Prop({ default: false })
+    vatLineAmount: number;
 
     @Prop({ default: false })
     archived: boolean;

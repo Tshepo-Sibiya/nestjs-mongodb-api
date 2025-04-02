@@ -30,6 +30,9 @@ export class User extends Document {
     @Prop({ type: Types.ObjectId, ref: Business.name })
     businessProfile?: Types.ObjectId;
 
+    @Prop({ type: Types.ObjectId, ref: "AddressDetails"})
+    addressDetails?: Types.ObjectId;
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

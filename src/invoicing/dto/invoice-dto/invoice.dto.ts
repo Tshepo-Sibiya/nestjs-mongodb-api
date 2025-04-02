@@ -24,6 +24,11 @@ export class InvoiceDto {
   @IsDate()
   dueDate: Date;
 
+  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
+  invoiceDate: Date;
+
   @IsOptional()
   @IsString()
   notes?: string;

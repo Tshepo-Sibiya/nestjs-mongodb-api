@@ -14,6 +14,7 @@ import {
 import { BusinessProfileDto } from './business-profile.dto';
 import { IndividualProfileDto } from './indidual-profile.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { AddressDetailsDto } from './address-details.dto';
   
   
   
@@ -69,5 +70,10 @@ import { ApiProperty } from '@nestjs/swagger';
     @Type(() => BusinessProfileDto)
     @IsOptional()
     businessProfile?: BusinessProfileDto;
+
+    @ValidateNested()
+    @Type(() => AddressDetailsDto)
+    @IsOptional()
+    addressDetails?: AddressDetailsDto;
   }
   

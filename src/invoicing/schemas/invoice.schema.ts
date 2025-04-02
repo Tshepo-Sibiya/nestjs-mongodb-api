@@ -18,6 +18,9 @@ export class Invoice {
     @Prop({ required: true })
     dueDate: Date;
 
+    @Prop({ required: true })
+    invoiceDate: Date;
+
     @Prop()
     notes: string;
 

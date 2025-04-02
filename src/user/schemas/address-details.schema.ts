@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-@Schema({
-    timestamps: true
-})
+export type AddressDetailsDocument = AddressDetails & Document;
+
+@Schema({ timestamps: true })
 export class AddressDetails extends Document {
 
     @Prop({ required: true })
