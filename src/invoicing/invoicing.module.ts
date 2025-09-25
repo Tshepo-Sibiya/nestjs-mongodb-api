@@ -64,8 +64,8 @@ import { UserService } from 'src/user/services/user/user.service';
         ])
     ],
     controllers: [InvoiceController, VatRateController, InvoiceItemController, QuoteController, CustomerController],
-    providers: [QuoteService, InvoiceService, VatRateService, InvoiceItemService, CustomerService, JwtStrategy, UserService],
-    exports: [JwtStrategy, PassportModule, MongooseModule],
+    providers: [QuoteService, InvoiceService, VatRateService, InvoiceItemService, CustomerService, UserService],
+    exports: [PassportModule, MongooseModule],
 })
 export class InvoicingModule {
 
