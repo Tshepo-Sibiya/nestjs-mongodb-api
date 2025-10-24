@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional, IsNumber } from "class-validator";
 import { Gender } from "src/common/enums/gender.enum";
 
 export class CreateFamilyMemberDetailsDto {
@@ -22,7 +22,7 @@ export class CreateFamilyMemberDetailsDto {
     @IsString()
     deathDate: Date;
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
     generation: number;
 
