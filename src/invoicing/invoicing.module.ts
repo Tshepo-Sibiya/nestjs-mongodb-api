@@ -22,6 +22,9 @@ import { VatRateService } from './services/vat/vat-rate.service';
 import { VatRate, VatRateSchema } from './schemas/vat.schema';
 import { InvoiceService } from './services/invoice/invoice.service';
 import { UserService } from 'src/user/services/user/user.service';
+import { InvoiceSettings, InvoiceSettingsSchema } from './schemas/invoice-settings.schema';
+import { InvoiceSettingsController } from './controllers/invoice-settings/invoice-settings.controller';
+import { InvoiceSettingsService } from './services/invoice-settings/invoice-settings.service';
 
 @Module({
     imports: [
@@ -48,6 +51,10 @@ import { UserService } from 'src/user/services/user/user.service';
                 name: InvoiceItem.name,
                 schema: InvoiceItemSchema,
             },
+             {
+                name: InvoiceSettings.name,
+                schema: InvoiceSettingsSchema,
+            },
             {
                 name: Quote.name,
                 schema: QuoteSchema,
@@ -63,8 +70,8 @@ import { UserService } from 'src/user/services/user/user.service';
 
         ])
     ],
-    controllers: [InvoiceController, VatRateController, InvoiceItemController, QuoteController, CustomerController],
-    providers: [QuoteService, InvoiceService, VatRateService, InvoiceItemService, CustomerService, UserService],
+    controllers: [InvoiceController, VatRateController, InvoiceItemController, QuoteController, CustomerController, InvoiceSettingsController],
+    providers: [QuoteService, InvoiceService, VatRateService, InvoiceItemService, CustomerService, UserService, InvoiceSettingsService],
     exports: [PassportModule, MongooseModule],
 })
 export class InvoicingModule {

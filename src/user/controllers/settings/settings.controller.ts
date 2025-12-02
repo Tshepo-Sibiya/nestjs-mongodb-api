@@ -12,11 +12,6 @@ export class SettingsController {
 
   }
 
-  @Get('/getSettings')
-  @UseGuards(AuthGuard())
-  async getUserSettings(@Req() req) {
-    return this.settingsService.GetSettingsById(req.user._id);
-  }
 
 
   @Post('/createOrUpdateSettings')
@@ -28,5 +23,12 @@ export class SettingsController {
   ): Promise<Settings> {
     return this.settingsService.createOrUpdateSettings(req.user, settings);
   }
+
+  @Get('/getSettings')
+  @UseGuards(AuthGuard())
+  async getUserSettings(@Req() req) {
+    return this.settingsService.GetSettingsById(req.user._id);
+  }
+
 
 }

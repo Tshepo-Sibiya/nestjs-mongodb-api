@@ -16,6 +16,8 @@ export class SettingsService {
 
   }
 
+  
+
 
   async createOrUpdateSettings(user: User, settingsDto: CreateSettingsDto): Promise<Settings> {
     const _user = await this.userModel.findById(user).exec();

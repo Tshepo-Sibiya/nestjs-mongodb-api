@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Console } from 'console';
-import { CreateCustomerDto } from 'src/invoicing/dto/customer-dto/create-customer..dto';
+import { CreateCustomerDto } from 'src/invoicing/dto/customer-dto/create-customer.dto';
 import { Customer } from 'src/invoicing/schemas/customer.schema';
 import { CustomerService } from 'src/invoicing/services/customer/customer.service';
 
