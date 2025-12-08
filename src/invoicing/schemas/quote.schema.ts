@@ -3,6 +3,7 @@ import mongoose, { Document } from 'mongoose';
 import { Types } from 'mongoose';
 import { InvoiceItem } from './invoice-item.schema';
 import { Customer } from './customer.schema';
+import { InvoiceStatus } from '../enums/invoice-status.enum';
 
 export type QuoteDocument = Quote & Document;
 
@@ -25,10 +26,18 @@ export class Quote {
     @Prop({ required: true })
     expiryDate: Date;
 
+    @Prop({
+        required: true,
+        enum: Object.values(InvoiceStatus),
+        type: String,
+        default: InvoiceStatus.DRAFT, 
+    })
+    status: InvoiceStatus;
+
     @Prop()
     notes: string;
 
-    @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItem' }] }) 
+    @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItem' }] })
     invoiceItems: InvoiceItem[];
 
     @Prop({ type: mongoose.Types.ObjectId, ref: 'Customer', required: true })

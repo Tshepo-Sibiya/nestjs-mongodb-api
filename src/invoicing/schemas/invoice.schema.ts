@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, Types } from 'mongoose';
 import { InvoiceItem } from './invoice-item.schema';
 import { Customer } from './customer.schema';
+import { InvoiceStatus } from '../enums/invoice-status.enum';
 
 export type InvoiceDocument = Invoice & Document;
 
@@ -21,10 +22,19 @@ export class Invoice {
     @Prop({ required: true })
     invoiceDate: Date;
 
+
+    @Prop({
+        required: true,
+        enum: Object.values(InvoiceStatus),
+        type: String,
+        default: InvoiceStatus.DRAFT, 
+    })
+    status: InvoiceStatus;
+
     @Prop()
     notes: string;
 
-    @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItems' }] }) 
+    @Prop({ type: [{ type: Types.ObjectId, ref: 'InvoiceItems' }] })
     invoiceItems: InvoiceItem[];
 
     @Prop({ type: mongoose.Types.ObjectId, ref: 'Customer', required: true })

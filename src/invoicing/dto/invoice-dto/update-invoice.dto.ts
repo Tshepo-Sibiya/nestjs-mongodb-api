@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString, IsNumber, IsOptional, IsDate, ValidateNested, IsArray } from 'class-validator';
 import { Type } from 'class-transformer';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
+import { InvoiceStatus } from 'src/invoicing/enums/invoice-status.enum';
 
 export class UpdateInvoiceDto {
 
@@ -20,6 +21,10 @@ export class UpdateInvoiceDto {
   @Type(() => Date)
   @IsDate()
   dueDate: Date;
+
+  @IsNotEmpty()
+  @IsString()
+  status: InvoiceStatus;
 
   @IsOptional()
   @IsString()
