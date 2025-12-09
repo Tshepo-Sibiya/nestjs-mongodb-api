@@ -28,7 +28,7 @@ export class CustomerController {
         return this.customerService.updateCustomer(id, updateCustomerDto, req.user._id);
     }
 
-    @Post('/getUserCustomers')
+    @Get('/getUserCustomers')
     @UseGuards(AuthGuard())
     getCustomersByUserId(@Req() req,) {
     

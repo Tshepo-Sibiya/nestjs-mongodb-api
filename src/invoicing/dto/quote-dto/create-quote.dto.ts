@@ -36,7 +36,7 @@ export class CreateQuoteDto {
   expiryDate: Date;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsString()
   status: InvoiceStatus;
 
   @IsOptional()

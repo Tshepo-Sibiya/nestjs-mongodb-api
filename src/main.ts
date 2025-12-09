@@ -6,12 +6,14 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Add global prefix
+  app.setGlobalPrefix('api');
+
   app.enableCors({
     origin: 'http://localhost:4200',   // allow Angular dev server
     methods: 'GET,POST,PUT,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
   });
-
 
   const config = new DocumentBuilder()
     .setTitle('Invoicing API')
@@ -19,11 +21,13 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('Invoice')
     .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
 
+  const document = SwaggerModule.createDocument(app, config);
+  // Swagger endpoint with /api prefix
+  SwaggerModule.setup('api/docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
