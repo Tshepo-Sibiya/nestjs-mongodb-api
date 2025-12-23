@@ -2,7 +2,7 @@ import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
 import { Model } from 'mongoose';
-import { InvoiceItemDto } from 'src/invoicing/dto/invoice-item-dto/invoice-item.dto';
+import { InvoiceItemDto } from 'src/invoicing/dto/invoice-item-dto/create-invoice-item.dto';
 import { User } from 'src/user/schemas/user.schema';
 
 

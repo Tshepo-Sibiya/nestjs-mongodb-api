@@ -104,11 +104,11 @@ export class InvoiceService {
   }
 
   formatDate(date: Date): string {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-      const year = date.getFullYear();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = date.getFullYear();
 
-      return `${day}-${month}-${year}`;
+    return `${day}-${month}-${year}`;
   }
 
 
@@ -140,175 +140,175 @@ export class InvoiceService {
     const imageBase64 = fs.readFileSync(imagePath, 'base64');
     const imageSrc = `data:image/jpeg;base64,${imageBase64}`;
     // Define the HTML template for the invoice
+    const htmlContent = '';
+    // const htmlContent = `
+    //   <html>
+    //   <head>
+    //     <style>
+    //     body { 
+    //       background-color: yellow;
+    //       font-family: Arial, sans-serif; 
+    //       margin: 20px; 
+    //       position: relative; 
+    //       min-height: 100vh; 
+    //       padding: 30px; /* Adjust based on footer height */
+    //     }
+    //     h1 { color: #333; text-align: center; }
+    //     table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    //     th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    //     .custom-table th, 
+    //     .custom-table thead {
+    //       background-color: yellow !important;
+    //       color: purple;
+    //       border: none;
+    //     }
+    //     .custom-table td {
+    //       border: none;
+    //     }
+    //     .table thead th {
+    //       background-color: yellow !important;
+    //     }
+    //     th { background-color: #f4f4f4; }
+    //     .header { display: flex; align-items: center; }
+    //     .logo { width: 100px; height: auto; margin-right: 20px; }
+    //     .flex-container { display: flex; justify-content: space-between; margin-top: 20px; }
+    //     .left, .right { width: 48%; }
+    //     .footer {
+    //       position: fixed;
+    //       bottom: 0;
+    //       left: 0;
+    //       width: 100%;
+    //       background-color: #f4f4f4;
+    //       text-align: center;
+    //       padding: 10px 0;
+    //       font-size: 14px;
+    //     }
+    //     @media print {
+    //       .footer {
+    //       position: fixed;
+    //       bottom: 0;
+    //       }
+    //     }
+    //     </style>
+    //   </head>
+    //   <body>
+    //   <div>
+    //    <h2 style="color: purple;text-align:left;font-size: 20px">Invoice - ${invoice.invoiceNumber} </h2>
+    //   </div>
 
-    const htmlContent = `
-      <html>
-      <head>
-        <style>
-        body { 
-          background-color: yellow;
-          font-family: Arial, sans-serif; 
-          margin: 20px; 
-          position: relative; 
-          min-height: 100vh; 
-          padding: 30px; /* Adjust based on footer height */
-        }
-        h1 { color: #333; text-align: center; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        .custom-table th, 
-        .custom-table thead {
-          background-color: yellow !important;
-          color: purple;
-          border: none;
-        }
-        .custom-table td {
-          border: none;
-        }
-        .table thead th {
-          background-color: yellow !important;
-        }
-        th { background-color: #f4f4f4; }
-        .header { display: flex; align-items: center; }
-        .logo { width: 100px; height: auto; margin-right: 20px; }
-        .flex-container { display: flex; justify-content: space-between; margin-top: 20px; }
-        .left, .right { width: 48%; }
-        .footer {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          background-color: #f4f4f4;
-          text-align: center;
-          padding: 10px 0;
-          font-size: 14px;
-        }
-        @media print {
-          .footer {
-          position: fixed;
-          bottom: 0;
-          }
-        }
-        </style>
-      </head>
-      <body>
-      <div>
-       <h2 style="color: purple;text-align:left;font-size: 20px">Invoice - ${invoice.invoiceNumber} </h2>
-      </div>
-      
-       
 
-        <div style="margin-bottom: 30px; padding-top: 20px;text-align:left">   
-         <img src="${imageSrc}" class="logo" style="height: 160px;width: 160px;margin-bottom: 20px"/>
-         <h2 style="font-size: 20px">${invoice.customer.name}</h2>
-        </div>
-        
-        <hr>
 
-        <div style="margin-bottom: 50px">
-        <table style="border: none;" class="custom-table">
-         <tr>
-          <td style="border: none;">
-          
-            <table border="0" style="">
-            <tr>
-              <th>ISSUED TO:</th>
-           
-            </tr>
-            <tr>
-              <td>
-              ${invoice.customer.name}
-              </td>
-            </tr>
-              <tr>
-              <td>
-                 ${invoice.customer.email}
-              </td>
-            </tr>
-             </table>
-          </td>
-          <td style="border: none;">
-            <table class="custom-table" style="margin-left: 20px;">
-            <tr>
-              <th>INVOICE NO: ${invoice.invoiceNumber}</th>
-            
-            </tr>
-            <tr>
-              <td>DATE: ${this.formatDate(invoice.dueDate)}</td>
-            </tr>
-              <tr>
-              <td>DUE DATE: ${this.formatDate(invoice.invoiceDate)}</td>
-            </tr>
-            </table>
-           </td>
-        </tr>
+    //     <div style="margin-bottom: 30px; padding-top: 20px;text-align:left">   
+    //      <img src="${imageSrc}" class="logo" style="height: 160px;width: 160px;margin-bottom: 20px"/>
+    //      <h2 style="font-size: 20px">${invoice.customer.name}</h2>
+    //     </div>
 
-        
-        </table>
+    //     <hr>
 
-        <hr>
-        
-        <p>
-      
-        
-        </p>
-        </div>
-        <table class="custom-table" style="background-color: yellow !important">
-        <thead style="background-color: yellow !important">
-          <tr style="background-color: yellow;">
-          <th>Item</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${(Array.isArray(invoice?.invoiceItems) ? invoice.invoiceItems.map((item) => `
-          <tr>
-            <td>${item.description}</td>
-            <td>${item.quantity}</td>
-            <td>R ${item.price}</td>
-            <td>R ${item.quantity * item.price}</td>
-          </tr>
-          `).join('') : '<tr><td colspan="4">No items available</td></tr>')}
-          <tr>
-          <td colspan="5"></td>
-          </tr>
-         <tr>
-          <td colspan="5"></td>
-          </tr>
-           <tr>
-          <td colspan="5"><hr></td>
-          </tr>
-            <tr style="">
-              <th style="text-align: right;" colspan="4">Sub Total: R 50000</th>
-             </tr>
-             <tr style="text-align: right;">
-              <th style="text-align: right;" colspan="4">Total Due: R 50000</th>
-             </tr>
-                   <tr>
-          <td colspan="5"><hr></td>
-          </tr>
-        </tbody>
-        </table>
+    //     <div style="margin-bottom: 50px">
+    //     <table style="border: none;" class="custom-table">
+    //      <tr>
+    //       <td style="border: none;">
 
-        <div class="footer" style="margin-top: 90px;">
-         <table class="custom-table" style="margin-left: 20px;">
-            <tr>
-              <th>BANK DETAILS:</th>
-            </tr>
-            <tr>
-              <td>${user.businessProfile.businessName}</td>
-            </tr>
-              <tr>
-                <td></td>
-            </tr>
-            </table>
-        &copy; 2025 ${user.businessProfile.businessName}. All Rights Reserved.
-        </div>
-      </body>
-      </html>
-      `;
+    //         <table border="0" style="">
+    //         <tr>
+    //           <th>ISSUED TO:</th>
+
+    //         </tr>
+    //         <tr>
+    //           <td>
+    //           ${invoice.customer.name}
+    //           </td>
+    //         </tr>
+    //           <tr>
+    //           <td>
+    //              ${invoice.customer.email}
+    //           </td>
+    //         </tr>
+    //          </table>
+    //       </td>
+    //       <td style="border: none;">
+    //         <table class="custom-table" style="margin-left: 20px;">
+    //         <tr>
+    //           <th>INVOICE NO: ${invoice.invoiceNumber}</th>
+
+    //         </tr>
+    //         <tr>
+    //           <td>DATE: ${this.formatDate(invoice.dueDate)}</td>
+    //         </tr>
+    //           <tr>
+    //           <td>DUE DATE: ${this.formatDate(invoice.invoiceDate)}</td>
+    //         </tr>
+    //         </table>
+    //        </td>
+    //     </tr>
+
+
+    //     </table>
+
+    //     <hr>
+
+    //     <p>
+
+
+    //     </p>
+    //     </div>
+    //     <table class="custom-table" style="background-color: yellow !important">
+    //     <thead style="background-color: yellow !important">
+    //       <tr style="background-color: yellow;">
+    //       <th>Item</th>
+    //       <th>Quantity</th>
+    //       <th>Price</th>
+    //       <th>Total</th>
+    //       </tr>
+    //     </thead>
+    //     <tbody>
+    //       ${(Array.isArray(invoice?.invoiceItems) ? invoice.invoiceItems.map((item) => `
+    //       <tr>
+    //         <td>${item.description}</td>
+    //         <td>${item.quantity}</td>
+    //         <td>R ${item.price}</td>
+    //         <td>R ${item.quantity * item.price}</td>
+    //       </tr>
+    //       `).join('') : '<tr><td colspan="4">No items available</td></tr>')}
+    //       <tr>
+    //       <td colspan="5"></td>
+    //       </tr>
+    //      <tr>
+    //       <td colspan="5"></td>
+    //       </tr>
+    //        <tr>
+    //       <td colspan="5"><hr></td>
+    //       </tr>
+    //         <tr style="">
+    //           <th style="text-align: right;" colspan="4">Sub Total: R 50000</th>
+    //          </tr>
+    //          <tr style="text-align: right;">
+    //           <th style="text-align: right;" colspan="4">Total Due: R 50000</th>
+    //          </tr>
+    //                <tr>
+    //       <td colspan="5"><hr></td>
+    //       </tr>
+    //     </tbody>
+    //     </table>
+
+    //     <div class="footer" style="margin-top: 90px;">
+    //      <table class="custom-table" style="margin-left: 20px;">
+    //         <tr>
+    //           <th>BANK DETAILS:</th>
+    //         </tr>
+    //         <tr>
+    //           <td>${user.businessProfile.businessName}</td>
+    //         </tr>
+    //           <tr>
+    //             <td></td>
+    //         </tr>
+    //         </table>
+    //     &copy; 2025 ${user.businessProfile.businessName}. All Rights Reserved.
+    //     </div>
+    //   </body>
+    //   </html>
+    //   `;
 
 
     // Launch Puppeteer to generate the PDF

@@ -15,23 +15,11 @@ export class InvoiceItem extends Document {
     @Prop({ required: true })
     price: number;
 
-    @Prop({ required: true })
-    quantity: number;
-
-    @Prop({ required: true })
-    discount: number;
-
-    @Prop({ default: false })
-    totalLineCost: number;
-
-    @Prop({ default: false })
-    vat: number;
-
-    @Prop({ default: false })
-    vatLineAmount: number;
-
     @Prop({ default: false })
     archived: boolean;
+
+    @Prop({ default: false })
+    taxable: boolean;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
     user: User;

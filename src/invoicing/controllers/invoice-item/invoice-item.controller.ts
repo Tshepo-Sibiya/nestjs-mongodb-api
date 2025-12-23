@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { InvoiceDto } from 'src/invoicing/dto/invoice-dto/invoice.dto';
-import { InvoiceItemDto } from 'src/invoicing/dto/invoice-item-dto/invoice-item.dto';
+import { InvoiceItemDto } from 'src/invoicing/dto/invoice-item-dto/create-invoice-item.dto';
 import { InvoiceItem } from 'src/invoicing/schemas/invoice-item.schema';
 import { Invoice } from 'src/invoicing/schemas/invoice.schema';
 import { InvoiceItemService } from 'src/invoicing/services/invoice-item/invoice-item.service';

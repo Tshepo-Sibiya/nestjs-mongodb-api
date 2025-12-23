@@ -11,25 +11,8 @@ export class InvoiceItemDto {
   @IsNumber()
   price: number;
 
-  @IsNotEmpty()
-  @IsNumber()
-  quantity: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  discount: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  totalLineCost: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  vat: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  vatLineAmount: number;
+  @IsBoolean()
+  taxable: boolean;
 
   @IsBoolean()
   archived: boolean;
