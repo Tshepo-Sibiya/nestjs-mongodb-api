@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { InvoicingModule } from './invoicing/invoicing.module';
 import { UserModule } from './user/user.module';
 import { FamilyTreeModule } from './family-tree/family-tree.module';
+import { GymBuddyModule } from './gym-buddy/gym-buddy.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { FamilyTreeModule } from './family-tree/family-tree.module';
     MongooseModule.forRoot('mongodb://localhost:27017/digitaltransitdb'),
     UserModule,
     InvoicingModule,
-    FamilyTreeModule
+    FamilyTreeModule,
+    GymBuddyModule
   ],
   controllers: [],
   providers: [AppService],
