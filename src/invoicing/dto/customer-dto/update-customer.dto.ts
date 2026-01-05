@@ -1,6 +1,33 @@
 import { IsNotEmpty, IsString, IsNumber, IsOptional, IsDate, ValidateNested, IsEmail, isString, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 
+
+export class InvoiceCustomerAddressDto {
+  @IsOptional()
+  @IsString()
+  addressLineOne?: string;
+
+  @IsOptional()
+  @IsString()
+  addressLineTwo?: string;
+
+  @IsOptional()
+  @IsString()
+  city?: string;
+
+  @IsOptional()
+  @IsString()
+  province?: string;
+
+  @IsOptional()
+  @IsString()
+  postalCode?: string;
+
+  @IsOptional()
+  @IsString()
+  country?: string;
+}
+
 export class UpdateCustomerDto {
 
   @IsNotEmpty()
@@ -13,10 +40,14 @@ export class UpdateCustomerDto {
   email: string;
 
   @IsString()
-  phone: string;
-
+  phone?: string;
 
   @IsBoolean()
-  archived: boolean;
+  archived?: boolean;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => InvoiceCustomerAddressDto)
+  address?: InvoiceCustomerAddressDto;
 
 }

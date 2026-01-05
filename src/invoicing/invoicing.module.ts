@@ -25,6 +25,7 @@ import { UserService } from 'src/user/services/user/user.service';
 import { InvoiceSettings, InvoiceSettingsSchema } from './schemas/invoice-settings.schema';
 import { InvoiceSettingsController } from './controllers/invoice-settings/invoice-settings.controller';
 import { InvoiceSettingsService } from './services/invoice-settings/invoice-settings.service';
+import { InvoiceCustomerAddress, InvoiceCustomerAddressSchema } from './schemas/customer-address.schema';
 
 @Module({
     imports: [
@@ -62,6 +63,10 @@ import { InvoiceSettingsService } from './services/invoice-settings/invoice-sett
             {
                 name: Customer.name,
                 schema: CustomerSchema,
+            },
+            {
+                name: InvoiceCustomerAddress.name,
+                schema: InvoiceCustomerAddressSchema,
             },
             {
                 name: VatRate.name,

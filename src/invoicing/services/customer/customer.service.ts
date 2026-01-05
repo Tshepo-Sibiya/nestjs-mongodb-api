@@ -14,17 +14,21 @@ export class CustomerService {
         @InjectModel(User.name) private userModel: Model<User>
     ) { }
 
-    async createCustomer(user: User, createInvoiceDto: CreateCustomerDto): Promise<Customer> {
+    async createCustomer(user: User, createCustomerDto: CreateCustomerDto): Promise<Customer> {
         const foundUser = await this.userModel.findById(user._id).exec();
 
         if (!foundUser) {
             throw new NotFoundException('User not found');
         }
 
-        const data = Object.assign(createInvoiceDto, { user: user._id });
-        let newCustomer = await this.customerModel.create(data);
-        return newCustomer;
+        const data = {
+            ...createCustomerDto,
+            user: user._id,
+            address: createCustomerDto.address ? { ...createCustomerDto.address } : undefined,
+        };
 
+        const newCustomer = await this.customerModel.create(data);
+        return newCustomer;
     }
 
 

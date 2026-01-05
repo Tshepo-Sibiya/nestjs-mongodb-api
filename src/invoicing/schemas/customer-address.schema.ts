@@ -4,7 +4,7 @@ import { Document } from 'mongoose';
 @Schema({
     timestamps: true
 })
-export class CustomerAddress extends Document {
+export class InvoiceCustomerAddress extends Document {
     @Prop({ required: true })
     addressLineOne: string;
 
@@ -21,4 +21,4 @@ export class CustomerAddress extends Document {
     postalCode: string;
 }
 
-export const AddressSchema = SchemaFactory.createForClass(CustomerAddress);
+export const InvoiceCustomerAddressSchema = SchemaFactory.createForClass(InvoiceCustomerAddress);
