@@ -5,23 +5,29 @@ import { IsString, IsNotEmpty,  IsOptional } from 'class-validator';
 
 export class UpdateGymSessionDto {
 
-    @IsString()
-    @IsNotEmpty()
-    title: string;
+    @IsOptional()
+    date?: Date;
 
     @IsOptional()
     @IsString()
-    description?: string;
+    notes?: string;
+
+    @IsOptional()
+    @IsString()
+    status?: 'completed' | 'scheduled' | 'cancelled';
 }
 
 export class CreateGymSessionDto {
+
     @IsOptional()
-    @IsString()
-    title?: string;
+    date?: Date;
 
     @IsOptional()
     @IsString()
-    description?: string;
+    notes?: string;
 
+    @IsOptional()
+    @IsString()
+    status?: 'completed' | 'scheduled' | 'cancelled';
 }
 

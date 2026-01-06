@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { GymSessionService } from 'src/gym-buddy/services/gym-session/gym-session.service';
 
 @Controller('gym-session')
@@ -8,26 +9,31 @@ export class GymSessionController {
             }
 
             @Post()
-            async create(@Body() createGymSessionDto: any) {
-                return this.gymSessionService.create(createGymSessionDto);
+            @UseGuards(AuthGuard())
+            async create(@Req() req,@Body() createGymSessionDto: any) {
+                return this.gymSessionService.create(req.user,createGymSessionDto);
             }
 
             @Get()
+            @UseGuards(AuthGuard())
             async findAll(@Query() query: any) {
                 return this.gymSessionService.findAll();
             }
 
             @Get(':id')
+            @UseGuards(AuthGuard())
             async findOne(@Param('id') id: string) {
                 return this.gymSessionService.findOne(id);
             }
 
-            @Patch(':id')
+            @Put(':id')
+            @UseGuards(AuthGuard())
             async update(@Param('id') id: string, @Body() updateGymSessionDto: any) {
                 return this.gymSessionService.update(id, updateGymSessionDto);
             }
 
             @Delete(':id')
+            @UseGuards(AuthGuard())
             async remove(@Param('id') id: string) {
                 return this.gymSessionService.remove(id);
             }

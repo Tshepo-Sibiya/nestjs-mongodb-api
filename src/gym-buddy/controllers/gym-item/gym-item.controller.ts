@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateGymItemDto, UpdateGymItemDto } from 'src/gym-buddy/dto/gym-item';
 import { GymItemService } from 'src/gym-buddy/services/gym-item/gym-item.service';
@@ -29,7 +29,19 @@ export class GymItemController {
     @Put(':id')
     @UseGuards(AuthGuard())
     async update(@Param('id') id: string, @Body() updateGymItemDto: UpdateGymItemDto) {
-        return this.gymItemService.update(id, updateGymItemDto);
+
+        try {
+            
+            const updatedItem = await this.gymItemService.update(id, updateGymItemDto);
+            return updatedItem;
+
+        } catch (error) {
+            // Handle error appropriately
+            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+            // throw new NotFoundException(`Gym item with id ${id} not found`);
+        }
+
+        
     }
 
     @Delete(':id')

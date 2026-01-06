@@ -24,7 +24,6 @@ export class UpdateGymItemDto {
 
 export class CreateGymItemDto {
     @ApiPropertyOptional({ example: 'Adjustable Dumbbell', description: 'Name of the gym item' })
-    @IsOptional()
     @IsString()
     @IsNotEmpty()
     name?: string;
