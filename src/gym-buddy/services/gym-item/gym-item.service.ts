@@ -41,17 +41,6 @@ export class GymItemService {
         return newCustomer;
     }
 
-    // async create(data: any): Promise<GymItem> {
-    //     // If a user reference is provided, ensure the user exists
-    //     if (data.userId) {
-    //         const user = await this.userModel.findById(data.userId).exec();
-    //         if (!user) throw new Error('User not found');
-    //     }
-
-    //     const created = new this.gymItemModel(data);
-    //     return created.save();
-    // }
-
     async update(id: string, data: any): Promise<GymItem | null> {
         // Update gym item and return the updated document
         const updated = await this.gymItemModel.findByIdAndUpdate(id, data, { new: true }).exec();

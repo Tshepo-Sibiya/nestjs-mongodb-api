@@ -8,6 +8,8 @@ import { GymItem, GymItemSchema } from './schemas/gym-item.schema';
 import { GymSession, GymSessionSchema } from './schemas/gym-session.schema';
 import { GymItemController } from './controllers/gym-item/gym-item.controller';
 import { GymItemService } from './services/gym-item/gym-item.service';
+import { GymSessionController } from './controllers/gym-session/gym-session.controller';
+import { GymSessionService } from './services/gym-session/gym-session.service';
 
 @Module({
     imports: [
@@ -37,8 +39,8 @@ import { GymItemService } from './services/gym-item/gym-item.service';
 
         ])
     ],
-    controllers: [GymItemController],
-    providers: [GymItemService],
+    controllers: [GymItemController, GymSessionController],
+    providers: [GymItemService, GymSessionService],
     exports: [PassportModule, MongooseModule],
 })
-export class GymBuddyModule {}
+export class GymBuddyModule { }
