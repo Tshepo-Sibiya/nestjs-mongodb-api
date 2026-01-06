@@ -6,6 +6,8 @@ import { PassportModule } from '@nestjs/passport';
 import { UserModule } from 'src/user/user.module';
 import { GymItem, GymItemSchema } from './schemas/gym-item.schema';
 import { GymSession, GymSessionSchema } from './schemas/gym-session.schema';
+import { GymItemController } from './controllers/gym-item/gym-item.controller';
+import { GymItemService } from './services/gym-item/gym-item.service';
 
 @Module({
     imports: [
@@ -35,8 +37,8 @@ import { GymSession, GymSessionSchema } from './schemas/gym-session.schema';
 
         ])
     ],
-    controllers: [],
-    providers: [],
+    controllers: [GymItemController],
+    providers: [GymItemService],
     exports: [PassportModule, MongooseModule],
 })
 export class GymBuddyModule {}

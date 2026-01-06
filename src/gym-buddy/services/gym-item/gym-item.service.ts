@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { GymItem } from 'src/gym-buddy/schemas/gym-item.schema';
 import { User } from 'src/user/schemas/user.schema';
 import { Model } from 'mongoose';
+import { CreateGymItemDto } from 'src/gym-buddy/dto/gym-item';
+import { Customer } from 'src/invoicing/schemas/customer.schema';
 
 @Injectable()
 export class GymItemService {
@@ -22,16 +24,33 @@ export class GymItemService {
         return this.gymItemModel.findById(id).exec();
     }
 
-    async create(data: any): Promise<GymItem> {
-        // If a user reference is provided, ensure the user exists
-        if (data.userId) {
-            const user = await this.userModel.findById(data.userId).exec();
-            if (!user) throw new Error('User not found');
+    async create(user: User, createGymItemDto: CreateGymItemDto): Promise<GymItem> {
+        console.log('Creating gym item for user:', createGymItemDto);
+        const foundUser = await this.userModel.findById(user._id).exec();
+
+        if (!foundUser) {
+            throw new NotFoundException('User not found');
         }
 
-        const created = new this.gymItemModel(data);
-        return created.save();
+        const data = {
+            ...createGymItemDto,
+            user: user._id,
+        };
+
+        const newCustomer = await this.gymItemModel.create(data);
+        return newCustomer;
     }
+
+    // async create(data: any): Promise<GymItem> {
+    //     // If a user reference is provided, ensure the user exists
+    //     if (data.userId) {
+    //         const user = await this.userModel.findById(data.userId).exec();
+    //         if (!user) throw new Error('User not found');
+    //     }
+
+    //     const created = new this.gymItemModel(data);
+    //     return created.save();
+    // }
 
     async update(id: string, data: any): Promise<GymItem | null> {
         // Update gym item and return the updated document

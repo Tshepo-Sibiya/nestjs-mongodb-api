@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateGymItemDto, UpdateGymItemDto } from 'src/gym-buddy/dto/gym-item';
 import { GymItemService } from 'src/gym-buddy/services/gym-item/gym-item.service';
@@ -22,8 +22,8 @@ export class GymItemController {
 
     @Post()
     @UseGuards(AuthGuard())
-    async create(@Body() createGymItemDto: CreateGymItemDto) {
-        return this.gymItemService.create(createGymItemDto);
+    async create(@Req() req, @Body() createGymItemDto: CreateGymItemDto) {
+        return this.gymItemService.create(req.user, createGymItemDto);
     }
 
     @Put(':id')
